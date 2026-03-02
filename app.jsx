@@ -358,9 +358,9 @@ function Quiz() {
 
     const valid = () => {
         if (isContact) return contact.name.trim().length > 0 && contact.email.includes('@');
-        const a = answers[cur?.id];
+        const a = cur ? answers[cur.id] : null;
         if (!a) return false;
-        return cur.multi ? (Array.isArray(a) && a.length > 0) : true;
+        return cur && cur.multi ? (Array.isArray(a) && a.length > 0) : true;
     };
 
     const animate = (cb) => {
@@ -426,7 +426,7 @@ function Quiz() {
 
                 <div ref={bodyRef}>
                     {isContact ? (
-                        <>
+                        <React.Fragment>
                             <span className="section-label" style={{ marginBottom: '0.5rem', fontSize: '0.8125rem' }}>{t('Almost there')}</span>
                             <h3 className="quiz-q">{t('Where should we send the recap?')}</h3>
                             <p className="quiz-sub">{t('We review your answers before the call so we show up prepared — not winging it.')}</p>
@@ -440,14 +440,14 @@ function Quiz() {
                                     <input className="form-input" type="email" placeholder="you@yourbusiness.com" value={contact.email} onChange={e => setContact(p => ({ ...p, email: e.target.value }))} />
                                 </div>
                             </div>
-                        </>
+                        </React.Fragment>
                     ) : (
-                        <>
-                            <span className="section-label" style={{ marginBottom: '0.5rem', fontSize: '0.8125rem' }}>{cur?.label}</span>
-                            <h3 className="quiz-q">{cur?.q}</h3>
-                            <p className="quiz-sub">{cur?.sub}</p>
-                            <div style={{ display: 'grid', gridTemplateColumns: cur?.opts?.length >= 6 ? 'repeat(auto-fit,minmax(280px,1fr))' : '1fr', gap: '1rem', marginBottom: '2.5rem' }}>
-                                {cur?.opts?.map(o => {
+                        <React.Fragment>
+                            <span className="section-label" style={{ marginBottom: '0.5rem', fontSize: '0.8125rem' }}>{cur && cur.label}</span>
+                            <h3 className="quiz-q">{cur && cur.q}</h3>
+                            <p className="quiz-sub">{cur && cur.sub}</p>
+                            <div style={{ display: 'grid', gridTemplateColumns: (cur && cur.opts && cur.opts.length >= 6) ? 'repeat(auto-fit,minmax(280px,1fr))' : '1fr', gap: '1rem', marginBottom: '2.5rem' }}>
+                                {cur && cur.opts && cur.opts.map(o => {
                                     const ans = answers[cur.id];
                                     const sel = cur.multi ? (Array.isArray(ans) && ans.includes(o.v)) : ans === o.v;
                                     return (
@@ -465,7 +465,7 @@ function Quiz() {
                                     );
                                 })}
                             </div>
-                        </>
+                        </React.Fragment>
                     )}
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
@@ -473,9 +473,9 @@ function Quiz() {
                             ? <button onClick={back} className="btn btn-outline" style={{ padding: '0.875rem 1.5rem', fontSize: '0.9375rem', gap: '0.5rem' }}><IcoArrowL s={16} /> {t('Back')}</button>
                             : <div />
                         }
-                        {(isContact || cur?.multi) && (
+                        {(isContact || (cur && cur.multi)) && (
                             <button onClick={isContact ? submit : next} className="btn btn-electric" disabled={!valid()} style={{ padding: '0.875rem 2rem', fontSize: '0.9375rem', gap: '0.625rem', opacity: valid() ? 1 : 0.4, cursor: valid() ? 'pointer' : 'not-allowed' }}>
-                                {isContact ? <><span>{t('Book My Free Call')}</span><IcoArrow s={16} /></> : <><span>{t('Continue')}</span><IcoArrow s={16} /></>}
+                                {isContact ? <React.Fragment><span>{t('Book My Free Call')}</span><IcoArrow s={16} /></React.Fragment> : <React.Fragment><span>{t('Continue')}</span><IcoArrow s={16} /></React.Fragment>}
                             </button>
                         )}
                     </div>
@@ -486,6 +486,7 @@ function Quiz() {
 }
 /* ── ROI Estimator ── */
 function ROIEstimator() {
+    const { t } = useLang();
     const [spend, setSpend] = useState(2500);
     const [ticket, setTicket] = useState(1500);
 
@@ -646,7 +647,7 @@ function App() {
     );
 
     return (
-        <>
+        <React.Fragment>
             {/* NAV */}
             <nav style={{ padding: scrolled ? '0 1rem' : '0 1.5rem', top: scrolled ? '10px' : '0' }}>
                 <div className={`nav-inner ${scrolled ? 'scrolled' : ''}`}>
@@ -908,7 +909,7 @@ function App() {
                 <div className="modal-content" onClick={e => e.stopPropagation()}>
                     <button className="modal-close" onClick={closeModal}><IcoX s={18} /></button>
                     {activeModal && (
-                        <>
+                        <React.Fragment>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginBottom: '1.5rem' }}>
                                 <div className="service-icon-box" style={{ background: activeModal.bg, boxShadow: `0 4px 16px ${activeModal.bg}`, margin: 0 }}>{activeModal.icon}</div>
                                 <div>
@@ -928,7 +929,7 @@ function App() {
                                     </div>
                                 ))}
                             </div>
-                        </>
+                        </React.Fragment>
                     )}
                 </div>
             </div>
@@ -977,7 +978,7 @@ function App() {
                     </div>
                 </div>
             </footer>
-        </>
+        </React.Fragment>
     );
 }
 
