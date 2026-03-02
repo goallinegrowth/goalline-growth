@@ -487,7 +487,7 @@ function App() {
                 <div className="gl-blob gl-blob-3" />
                 <div className="gl-blob gl-blob-4" />
                 <div className="hero-grid" />
-                <div className="hero-content" style={{ paddingBottom: '7rem', paddingTop: '5rem' }}>
+                <div className="hero-content" style={{ paddingBottom: '5.5rem', marginTop: '4rem' }}>
                     <div className="hero-animate">
                         <span className="hero-badge" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }}>
                             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00E5A0', boxShadow: '0 0 10px #00E5A0', display: 'inline-block' }} />
