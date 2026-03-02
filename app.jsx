@@ -31,8 +31,8 @@ function RotatingText({ words, interval = 2500, style }) {
     const longest = words.reduce((a, b) => a.length > b.length ? a : b, '');
     return (
         <span style={{ position: 'relative', display: 'inline-flex', overflow: 'hidden', verticalAlign: 'bottom', ...style }}>
-            <span style={{ visibility: 'hidden', pointerEvents: 'none' }}>{longest}</span>
-            <span ref={spanRef} style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ visibility: 'hidden', pointerEvents: 'none', paddingBottom: '0.15em' }}>{longest}</span>
+            <span ref={spanRef} style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '0.15em' }}>
                 {words[idx]}
             </span>
         </span>
@@ -487,7 +487,7 @@ function App() {
                 <div className="gl-blob gl-blob-3" />
                 <div className="gl-blob gl-blob-4" />
                 <div className="hero-grid" />
-                <div className="hero-content">
+                <div className="hero-content" style={{ paddingBottom: '7rem' }}>
                     <div className="hero-animate">
                         <span className="hero-badge" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }}>
                             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00E5A0', boxShadow: '0 0 10px #00E5A0', display: 'inline-block' }} />
@@ -500,7 +500,7 @@ function App() {
                             words={['campaigns', 'websites', 'automation', 'loyalty']}
                             interval={3000}
                             style={{ color: '#00C2FF' }}
-                        />{'.'}<br />
+                        /><br />
                         We <em>cross the line</em> <strong>with you.</strong>
                     </h1>
                     <p className="hero-sub hero-animate">
@@ -511,13 +511,13 @@ function App() {
                         <a href="#services" className="btn btn-outline" style={{ padding: '1.125rem 2.25rem', fontSize: '1.0625rem' }}>See What We Build</a>
                     </div>
                 </div>
-                <div className="hero-trust">
+                <div className="hero-trust" style={{ gap: '1rem 2rem' }}>
                     {[
-                        [<BrandGoogle s={24} />, 'Google Partner'],
-                        [<BrandMeta s={24} />, 'Meta Business Partner'],
-                        [<BrandReact s={24} />, 'React/Webflow Expert']
+                        [<BrandGoogle s={22} />, 'Google Partner'],
+                        [<BrandMeta s={22} />, 'Meta Business Partner'],
+                        [<BrandReact s={22} />, 'React/Webflow Expert']
                     ].map(([icon, label], i) => (
-                        <div key={i} className="trust-item" style={{ gap: '0.75rem', fontSize: '0.875rem' }}>
+                        <div key={i} className="trust-item" style={{ gap: '0.625rem', fontSize: '0.8125rem' }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.9 }}>
                                 {icon}
                             </div>
